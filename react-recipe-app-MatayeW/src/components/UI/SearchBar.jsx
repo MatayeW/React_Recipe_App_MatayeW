@@ -6,6 +6,9 @@ import Button from "./Button";
 // Search bar component
 const SearchBar = ({ placeholder = "Search recipes...", onSearch }) => {
     const [searchTerm, setSearchTerm] = useState("");
+    // Tracks focus so the input's border can be styled dynamically —
+    // an inline style driven by state, not just a hard-coded value.
+    const [isFocused, setIsFocused] = useState(false);
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
@@ -27,8 +30,14 @@ const SearchBar = ({ placeholder = "Search recipes...", onSearch }) => {
                 type="text"
                 value={searchTerm}
                 onChange={handleChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
                 placeholder={placeholder}
                 aria-label="Search recipes"
+                style={{
+                    borderColor: isFocused ? "var(--color-primary)" : "var(--color-border)",
+                    boxShadow: isFocused ? "0 0 0 2px var(--color-primary-light)" : "none",
+                }}
             />
 
             <Button type="submit" variant="primary">

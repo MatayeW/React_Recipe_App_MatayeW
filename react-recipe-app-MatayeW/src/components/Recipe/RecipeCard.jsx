@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Card from "../UI/Card";
-import { formatCookTime, getTotalTime, getDifficultyEmoji } from "../../utils/helpers";
+import { formatCookTime, getTotalTime, getDifficultyEmoji, getDifficultyColor } from "../../utils/helpers";
 import styles from "./Recipe.module.css";
 
 // RecipeCard: displays a single recipe's summary. Used inside
@@ -37,7 +37,10 @@ const RecipeCard = ({ recipe, isFavorite = false, onFavoriteToggle }) => {
 
                     <div className={styles.badgeRow}>
                         <span className={`${styles.badge} ${styles.badgeCuisine}`}>{recipe.cuisine}</span>
-                        <span className={`${styles.badge} ${styles.badgeDifficulty}`}>
+                        <span
+                            className={`${styles.badge} ${styles.badgeDifficulty}`}
+                            style={{ backgroundColor: getDifficultyColor(recipe.difficulty) }}
+                        >
                             {getDifficultyEmoji(recipe.difficulty)} {recipe.difficulty}
                         </span>
                     </div>

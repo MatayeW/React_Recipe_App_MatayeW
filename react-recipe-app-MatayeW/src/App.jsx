@@ -23,39 +23,42 @@ const EMPTY_WEEK = {
 };
 
 function App() {
-    // recipes: loaded once on mount. In a real app this might be a
-    // fetch() call; here it's local data, but the useEffect pattern
-    // is the same either way.
-    const [recipes, setRecipes] = useState([]);
+    // recipes: read once via a lazy initializer instead of setting it
+    // in a mount-only useEffect. In a real app the data might come from
+    // a fetch() instead, but the local-data case doesn't need an effect
+    // at all since there's nothing asynchronous actually happening.
+    const [recipes] = useState(() => recipesData);
     const [isLoading, setIsLoading] = useState(true);
 
     // favorites and mealPlan are "lifted state" — owned here in App
     // so that RecipesPage, FavoritesPage, and MealPlannerPage can all
     // read and update the same shared data instead of each having
-    // their own disconnected copy.
-    const [favorites, setFavorites] = useState([]);
-    const [mealPlan, setMealPlan] = useState(EMPTY_WEEK);
-
-    // Load recipes on mount (simulates an initial data fetch).
-    useEffect(() => {
-        setRecipes(recipesData);
-        setIsLoading(false);
-    }, []);
-
-    // Load favorites from localStorage once, on mount only ([] dependency).
-    useEffect(() => {
-        const saved = localStorage.getItem("favorites");
-        if (saved) {
-            setFavorites(JSON.parse(saved));
+    // their own disconnected copy. Both read their initial value from
+    // localStorage via a lazy initializer (runs once, before first
+    // render) rather than via a useEffect that calls setState on mount.
+    const [favorites, setFavorites] = useState(() => {
+        try {
+            const saved = localStorage.getItem("favorites");
+            return saved ? JSON.parse(saved) : [];
+        } catch {
+            return [];
         }
-    }, []);
-
-    // Load the saved meal plan from localStorage once, on mount only.
-    useEffect(() => {
-        const saved = localStorage.getItem("mealPlan");
-        if (saved) {
-            setMealPlan(JSON.parse(saved));
+    });
+    const [mealPlan, setMealPlan] = useState(() => {
+        try {
+            const saved = localStorage.getItem("mealPlan");
+            return saved ? JSON.parse(saved) : EMPTY_WEEK;
+        } catch {
+            return EMPTY_WEEK;
         }
+    });
+
+    // Simulates an initial data fetch so the Loading component is
+    // actually visible for a moment, rather than isLoading flipping to
+    // false synchronously before the browser ever paints.
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 400);
+        return () => clearTimeout(timer);
     }, []);
 
     // Persist favorites to localStorage every time they change.
@@ -122,7 +125,17 @@ function App() {
                         }
                     />
                     {/* Dynamic route: :id is read inside RecipeDetail via useParams() */}
-                    <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes} />} />
+                    <Route
+                        path="/recipes/:id"
+                        element={
+                            <RecipeDetail
+                                recipes={recipes}
+                                favorites={favorites}
+                                onFavoriteToggle={handleFavoriteToggle}
+                                onAddMeal={handleAddMeal}
+                            />
+                        }
+                    />
                     <Route
                         path="/meal-planner"
                         element={

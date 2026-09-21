@@ -1,4 +1,3 @@
-
 // Adds prepTime + cookTime together, falls back to 0 if a recipe is missing either field so callers never get NaN
 export const getTotalTime = (recipe) => {
     const prep = recipe.prepTime || 0;
@@ -16,6 +15,21 @@ export const formatCookTime = (minutes) => {
     if (hours === 0) return `${remainingMinutes} min`;
     if (remainingMinutes === 0) return `${hours} hr`;
     return `${hours} hr ${remainingMinutes} min`;
+};
+
+// Maps a difficulty string to a hex color, used as an inline style on
+// the difficulty badge so its background reflects the data directly.
+export const getDifficultyColor = (difficulty) => {
+    switch (difficulty) {
+        case "easy":
+            return "#dcefdc";
+        case "medium":
+            return "#fdf1cf";
+        case "hard":
+            return "#f7dada";
+        default:
+            return "var(--color-secondary)";
+    }
 };
 
 // Assigning emoji (visual indicator) to difficulty level

@@ -114,6 +114,54 @@
     padding: var(--space-md);
 }
 
+.detailActions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.detailFavoriteBtn {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition);
+}
+
+.detailFavoriteBtn:hover {
+    transform: scale(1.03);
+}
+
+.planForm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+}
+
+.planRow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.planRow label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.planRow select {
+    padding: 0.55rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+}
+
 .detailImage {
     width: 100%;
     max-height: 400px;
