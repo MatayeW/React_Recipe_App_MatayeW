@@ -48,6 +48,7 @@ const RecipesPage = ({
             <h1>Browse Recipes</h1>
 
             <SearchBar
+                searchTerm={searchTerm}
                 onSearch={setSearchTerm}
                 placeholder="Search by recipe name..."
             />

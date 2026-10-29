@@ -46,7 +46,7 @@ export const getDifficultyEmoji = (difficulty) => {
     }
 };
 
-// Filters an array of recipes against a search term and optional category/cuisine/difficulty values
+// Filters an array of recipes against a search term (title or ingredients) and optional category/cuisine/difficulty values
 export const filterRecipes = (
     recipes,
     { searchTerm = "", category = "all", cuisine = "all", difficulty = "all" } =
@@ -55,7 +55,11 @@ export const filterRecipes = (
     const term = searchTerm.trim().toLowerCase();
 
     return recipes.filter((recipe) => {
-        const matchesSearch = term === "" || recipe.title.toLowerCase().includes(term);
+        // Match the search term against the title OR any ingredient
+        const matchesSearch =
+            term === "" ||
+            recipe.title.toLowerCase().includes(term) ||
+            recipe.ingredients.some((item) => item.toLowerCase().includes(term));
         const matchesCategory = category === "all" || recipe.category === category;
         const matchesCuisine = cuisine === "all" || recipe.cuisine === cuisine;
         const matchesDifficulty = difficulty === "all" || recipe.difficulty === difficulty;

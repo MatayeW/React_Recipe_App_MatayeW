@@ -4,21 +4,21 @@ import styles from "./UI.module.css";
 import Button from "./Button";
 
 // Search bar component
-const SearchBar = ({ placeholder = "Search recipes...", onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const SearchBar = ({ placeholder = "Search recipes...", searchTerm = "", onSearch }) => {
     // Tracks focus so the input's border can be styled dynamically —
     // an inline style driven by state, not just a hard-coded value.
     const [isFocused, setIsFocused] = useState(false);
 
+    // Live search: tell the parent about every keystroke so the
+    // results update as the user types
     const handleChange = (e) => {
-        setSearchTerm(e.target.value);
+        onSearch(e.target.value);
     };
 
+    // Pressing Enter / Search just stops the page from reloading,
+    // because the results are already up to date
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Send the search term to the parent component
-        onSearch(searchTerm);
     };
 
     return (
@@ -49,6 +49,7 @@ const SearchBar = ({ placeholder = "Search recipes...", onSearch }) => {
 
 SearchBar.propTypes = {
     placeholder: PropTypes.string,
+    searchTerm: PropTypes.string,
     onSearch: PropTypes.func.isRequired,
 };
 

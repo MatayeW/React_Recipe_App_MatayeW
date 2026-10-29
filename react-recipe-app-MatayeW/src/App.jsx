@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navigation/Navbar";
+import Footer from "./components/common/Footer";
 import styles from "./App.module.css";
 import Home from "./pages/Home";
 import RecipesPage from "./pages/RecipesPage";
@@ -22,7 +23,10 @@ const EMPTY_WEEK = {
     sunday: { breakfast: null, lunch: null, dinner: null },
 };
 
-function App() {
+const App = () => {
+    // Used as a key on RecipesPage so its filters reset when a Home link changes the URL
+    const location = useLocation();
+
     // recipes: read once via a lazy initializer instead of setting it
     // in a mount-only useEffect. In a real app the data might come from
     // a fetch() instead, but the local-data case doesn't need an effect
@@ -117,6 +121,7 @@ function App() {
                         path="/recipes"
                         element={
                             <RecipesPage
+                                key={location.search}
                                 recipes={recipes}
                                 favorites={favorites}
                                 isLoading={isLoading}
@@ -158,8 +163,10 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
+
+            <Footer />
         </div>
     );
-}
+};
 
 export default App;

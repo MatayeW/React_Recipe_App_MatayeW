@@ -93,11 +93,11 @@ const Home = () => {
                         </Link>
 
                         <Link
-                            to="/recipes?search=healthy"
+                            to="/recipes?category=lunch"
                             className={styles.categoryCard}
                         >
                             <span className={styles.categoryIcon}>🥗</span>
-                            <span>Healthy</span>
+                            <span>Lunch</span>
                         </Link>
 
                         <Link

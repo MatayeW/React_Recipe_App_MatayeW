@@ -4,7 +4,7 @@ import styles from "./UI.module.css";
 // Reusable card component
 const Card = ({ children, hoverable = false }) => {
     return (
-        <div className={`${styles.card} ${hoverable ? styles.hoverable : ""}`}>
+        <div className={`${styles.card} ${hoverable ? styles.cardHoverable : ""}`}>
             {children}
         </div>
     );
