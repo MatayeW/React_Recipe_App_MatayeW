@@ -34,12 +34,12 @@ A modern, responsive React web application for recipe discovery, nutritional pla
 
 ## Key Features
 
-1. **Centralized Recipe Catalog (`recipesData.js`)**:
-   - 17 complete recipes with cook times, servings, calories, difficulty ratings, dietary tags, ingredient lists, and step-by-step instructions.
+1. **Centralized Recipe Catalog (`recipesData.jsx`)**:
+   - 17 complete recipes with prep and cook times, servings, difficulty ratings, categories, cuisines, ingredient lists, and step-by-step instructions.
 
 2. **Live Search and Multi-Faceted Filters**:
-   - Real-time search across recipe titles, ingredients, and tags.
-   - Meal type and difficulty filters.
+   - Real-time search across recipe titles and ingredients.
+   - Category, cuisine, and difficulty filters.
    - Sorting options for easier recipe discovery.
    - Dynamic empty states with options to reset filters.
 
@@ -76,25 +76,28 @@ A modern, responsive React web application for recipe discovery, nutritional pla
 ```text
 react-recipe-app-MatayeW/src/
 ├── components/
-│   ├── common/ (Footer.jsx)
+│   ├── common/ (Footer.jsx, Header.jsx)
 │   ├── MealPlanner/ (DayCard.jsx, MealPlanner.jsx)
 │   ├── Media/ (AudioPlayer.jsx, VideoPlayer.jsx)
 │   ├── Navigation/ (Navbar.jsx)
-│   ├── Recipe/ (RecipeCard.jsx, RecipeDetail.jsx, RecipeList.jsx)
+│   ├── Recipe/ (RecipeCard.jsx, RecipeDetail.jsx, RecipeFilter.jsx, RecipeList.jsx)
 │   └── UI/ (Button.jsx, Card.jsx, Loading.jsx, Modal.jsx, SearchBar.jsx)
-├── data/ (recipesData.js)
+├── data/ (recipesData.jsx)
 ├── pages/ (FavoritesPage.jsx, Home.jsx, MealPlannerPage.jsx, NotFound.jsx, RecipesPage.jsx)
 ├── utils/ (helpers.js)
-├── App.css
 ├── App.jsx
+├── App.module.css
 ├── index.css
-├── index.js
 └── main.jsx
+```
 
---- ## How to View
-bash
+---
+
+## How to View
+
+```bash
 # 1. Navigate into the app directory
-cd recipe-app
+cd react-recipe-app-MatayeW
 
 # 2. Install dependencies
 npm install
@@ -105,3 +108,6 @@ npm run dev
 # 4. Validate lint and production build
 npm run lint
 npm run build
+```
+
+For the full documentation, see [`react-recipe-app-MatayeW/README.md`](./react-recipe-app-MatayeW/README.md) and the planning document, [`PLANNING.md`](./react-recipe-app-MatayeW/PLANNING.md).

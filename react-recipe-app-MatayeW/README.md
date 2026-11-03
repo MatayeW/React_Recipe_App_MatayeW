@@ -9,7 +9,7 @@ The application was developed as a React capstone project to demonstrate compone
 ## Features
 
 * Browse a collection of 17 recipes.
-* Search recipes by name.
+* Search recipes live by name or ingredient.
 * Filter recipes by category, cuisine, and difficulty.
 * Sort recipes by title, cooking time, or difficulty.
 * View detailed recipe information, including ingredients and instructions.
@@ -45,7 +45,6 @@ State that needs to be shared between different parts of the application is mana
 
 ```text
 src/
-├── assets/
 ├── components/
 │   ├── Navigation/
 │   ├── Recipe/
@@ -56,10 +55,9 @@ src/
 ├── data/
 ├── pages/
 ├── utils/
-├── App.css
 ├── App.jsx
+├── App.module.css
 ├── index.css
-├── index.js
 └── main.jsx
 
 public/
@@ -80,13 +78,14 @@ public/
 * **DayCard** – Handles meal selection for an individual day.
 * **VideoPlayer** – Provides HTML5 video playback with fallback text.
 * **AudioPlayer** – Provides HTML5 audio playback with fallback text.
-* **Button, Card, Loading, Modal** – Reusable UI components.
+* **Header, Footer** – Page title block and site footer.
+* **Button, Card, Loading, Modal, SearchBar** – Reusable UI components.
 
 ## State Management
 
 React `useState` is used for interactive state such as search terms, filters, favourites, meal selections, and the mobile navigation menu.
 
-`useEffect` is used for loading recipe data and synchronising favourites and the meal plan with `localStorage`.
+`useEffect` is used for the short loading state and for saving favourites and the meal plan to `localStorage`.
 
 Favourites and the weekly meal plan are stored in `localStorage`, allowing user selections to persist after a page refresh.
 
@@ -117,13 +116,7 @@ Start the development server:
 npm start
 ```
 
-Alternatively, the Vite development command can be used:
-
-```bash
-npm run dev
-```
-
-The application will then be available through the local Vite development URL.
+The app opens at the local Vite URL shown in the terminal (`npm run dev` does the same thing).
 
 To create a production build:
 
@@ -171,4 +164,3 @@ Future improvements could include user accounts, recipe creation, more advanced 
 ### Mobile Layout
 
 ![Mobile Layout](./screenshots/mobile.jpg)
-
